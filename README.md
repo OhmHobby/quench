@@ -314,7 +314,21 @@ pytest tests/
 ## Project layout
 
 ```
-core/        Engine and data structures — no external dependencies
-examples/    group_rotation.py and timetable.py — working end-to-end examples
-tests/       170 unit and regression tests
+core/              Engine and data structures — no external dependencies
+examples/          Working end-to-end examples
+  pharmacy/        Real-world pharmacy rotation case
+tests/             170 unit and regression tests
 ```
+
+---
+
+## Not a developer? 
+
+quench currently requires writing Python to define your constraints. If that's
+a barrier, two things are on the roadmap:
+
+- **Natural language interface** — describe your rules in plain English, let a
+  language model turn them into constraints and explain the result back to you
+- **Web UI** — a form-based interface for common scheduling problems, no code needed
+
+See [ROADMAP.md](ROADMAP.md) for details.
