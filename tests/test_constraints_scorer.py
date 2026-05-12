@@ -3,7 +3,7 @@ import random
 
 import pytest
 
-from core import Entity, Slot, State, Scorer, hard, soft, HardConstraint, SoftConstraint
+from quench import Entity, Slot, State, Scorer, hard, soft, HardConstraint, SoftConstraint
 
 
 # ── shared fixtures ───────────────────────────────────────────────────────────

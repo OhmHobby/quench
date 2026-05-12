@@ -8,11 +8,11 @@ import warnings
 
 import pytest
 
-from core import (
+from quench import (
     Entity, Slot, State, Scorer, hard, soft,
     History, SAEngine, PTEngine, Solver, Result,
 )
-from core.neighbor import swap
+from quench.neighbor import swap
 
 
 # ── shared fixtures ───────────────────────────────────────────────────────────

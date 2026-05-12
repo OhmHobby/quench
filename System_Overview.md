@@ -537,7 +537,7 @@ anything beyond pytest.
 
 ## 10. Test Suite
 
-170 tests across 6 files. All pass in < 1 second.
+170 tests across 6 files. Run with:
 
 ```
 pytest tests/

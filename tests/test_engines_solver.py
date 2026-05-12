@@ -3,9 +3,9 @@ import random
 
 import pytest
 
-from core import Entity, Slot, State, Scorer, hard, soft, History
-from core import SAEngine, PTEngine, Solver
-from core.neighbor import swap
+from quench import Entity, Slot, State, Scorer, hard, soft, History
+from quench import SAEngine, PTEngine, Solver
+from quench.neighbor import swap
 
 
 # ── shared problem ────────────────────────────────────────────────────────────
@@ -110,7 +110,7 @@ class TestSAEngine:
 
     def test_infeasible_init_can_recover(self, people, groups, scorer):
         # Start from a badly unbalanced state — engine should recover with move
-        from core.neighbor import move
+        from quench.neighbor import move
         bad_state = State({e: groups[0] for e in people})  # everyone in G0
         engine = SAEngine(T0=100.0, alpha=0.99, iterations=5_000,
                           neighbor_fn=move, rng=random.Random(0))

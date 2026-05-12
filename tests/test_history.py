@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from core import Entity, Slot, State, Scorer, hard, History
+from quench import Entity, Slot, State, Scorer, hard, History
 
 
 # ── fixtures ──────────────────────────────────────────────────────────────────

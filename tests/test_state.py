@@ -3,7 +3,7 @@ import random
 
 import pytest
 
-from core import Entity, Slot, State
+from quench import Entity, Slot, State
 
 
 # ── fixtures ──────────────────────────────────────────────────────────────────

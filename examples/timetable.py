@@ -34,7 +34,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent.parent))
 sys.stdout.reconfigure(encoding='utf-8')
 
-from core import Entity, Slot, State, Scorer, hard, soft, Solver
+from quench import Entity, Slot, State, Scorer, hard, soft, Solver
 
 
 # ── Rooms and periods ─────────────────────────────────────────────────────────
@@ -145,7 +145,7 @@ scorer = Scorer([
 # We use `move` (not swap) because we need to change which (room, period)
 # a course sits in — swapping two courses' slots may not fix conflicts.
 # `init="random"` is fine here since hard constraints guide the engine.
-from core.neighbor import move
+from quench.neighbor import move
 
 solver = Solver(
     courses, slots, scorer,

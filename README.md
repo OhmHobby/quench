@@ -16,12 +16,21 @@ The engine finds the best arrangement it can given your rules. You define what "
 
 Python 3.7+. The core engine has zero external dependencies — pure standard library.
 
+### Install from PyPI (once published)
+
 ```bash
-git clone <repo>
-cd quench
+pip install quench
 ```
 
-To run the tests: `pip install pytest`
+### Install from source
+
+```bash
+git clone https://github.com/OhmHobby/quench.git
+cd quench
+pip install -e .
+```
+
+To run the tests: `pip install pytest && pytest tests/`
 
 ---
 
@@ -111,7 +120,7 @@ Exports `schedule_output.csv` in the same column format as the original schedule
 **Slots** are the places they go (groups, rooms, time periods, roles).
 
 ```python
-from core import Entity, Slot
+from quench import Entity, Slot
 
 people = [Entity("Alice"), Entity("Bob"), Entity("Carol"), Entity("Dan")]
 groups = [Slot("Morning", capacity=2), Slot("Afternoon", capacity=2)]
@@ -129,7 +138,7 @@ Entity("Alice", meta={"department": "Engineering", "seniority": 3})
 **Hard constraints** are rules that must never be broken. The engine rejects any arrangement that violates one — full stop.
 
 ```python
-from core import hard
+from quench import hard
 
 def no_overflow(state):
     # return True if the constraint is VIOLATED
@@ -141,7 +150,7 @@ capacity_rule = hard(no_overflow, name="capacity")
 **Soft constraints** are goals to minimise — the engine reduces them as much as possible.
 
 ```python
-from core import soft
+from quench import soft
 
 def prefer_separate(state):
     alice = Entity("Alice")
@@ -156,7 +165,7 @@ separation_rule = soft(prefer_separate, weight=5.0, name="alice_bob_apart")
 ### Step 3 — Solve
 
 ```python
-from core import Scorer, Solver
+from quench import Scorer, Solver
 
 scorer = Scorer([capacity_rule, separation_rule])
 solver = Solver(people, groups, scorer, init="balanced")
@@ -182,7 +191,7 @@ for g in groups:
 For group rotation and repeated scheduling problems, the engine can remember who has been paired before and avoid repeating those pairings.
 
 ```python
-from core import History
+from quench import History
 
 history = History()
 
@@ -277,7 +286,7 @@ Controls how the engine proposes a new arrangement at each step:
 | `make_swap_k(k)` | Swap k pairs simultaneously | Large problems, hot exploration |
 
 ```python
-from core import move, make_swap_k
+from quench import move, make_swap_k
 
 Solver(..., neighbor_fn=move)
 Solver(..., neighbor_fn=make_swap_k(3))  # swap 3 pairs per step
@@ -314,10 +323,11 @@ pytest tests/
 ## Project layout
 
 ```
-core/              Engine and data structures — no external dependencies
+quench/            Engine and data structures — installable package
 examples/          Working end-to-end examples
   pharmacy/        Real-world pharmacy rotation case
-tests/             170 unit and regression tests
+tests/             Unit and regression tests
+pyproject.toml     Package metadata — pip install -e .
 ```
 
 ---

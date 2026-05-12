@@ -4,8 +4,8 @@ from collections import Counter
 
 import pytest
 
-from core import Entity, Slot, State
-from core.neighbor import swap, move, mixed, make_swap_k
+from quench import Entity, Slot, State
+from quench.neighbor import swap, move, mixed, make_swap_k
 
 
 # ── fixtures ──────────────────────────────────────────────────────────────────
