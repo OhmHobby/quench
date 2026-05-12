@@ -4,15 +4,14 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quench"
-version = "0.1.0"
+version = "0.1.1"
 description = "Constraint-based arrangement engine for group rotation, timetabling, and any scheduling problem with rules."
 readme = "README_pypi.md"
-license = { text = "MIT" }
+license = "MIT"
 requires-python = ">=3.7"
 keywords = ["scheduling", "constraint", "optimization", "rotation", "timetable"]
 classifiers = [
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Topic :: Scientific/Engineering",
     "Intended Audience :: Developers",
