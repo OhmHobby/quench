@@ -1,0 +1,50 @@
+Pharmacy Schedule — Customer Request
+=====================================
+This file is the original customer request (translated from Thai) that was
+used to build pharmacy_schedule.py. It is kept here as reference material
+so anyone reading the example can see exactly how a real-world natural-language
+requirement maps to constraint definitions in the engine.
+
+The original request was written in Thai. The translation below is verbatim.
+The accompanying file old_schedule.csv is the customer's existing schedule,
+provided as the starting reference for staff names and position layout.
+
+----------------------------------------------------------------------
+
+English Translation of Request:
+
+"I would like you to help write code to organize the work schedule for
+inpatient pharmacists for each week and month, based on the provided
+sample table.
+
+The schedule consists of 5 main tasks: S, M, L, C, and V, which should
+be rotated equally. Each position should be rotated among all staff
+members thoroughly, and staff should not always be grouped together with
+the same people.
+
+Specifically, Patcharasirin (พัชรสิรินทร์) and Sasilak (ศศิลักษณ์) must
+be assigned to different task sections and never work in the same task
+group.
+
+Rungroj (รุ่งโรจน์) and Arunee (อรุณี) are to remain in their original
+fixed positions.
+
+Woralak (วรลักษณ์) is to be removed and replaced with the name
+Chidchanok (ชิดชนก)."
+
+----------------------------------------------------------------------
+
+How this maps to the engine (see pharmacy_schedule.py):
+
+  Requirement                          Implementation
+  -----------------------------------  ----------------------------------------
+  5 tasks rotated equally              3 soft constraints: task_fairness,
+                                       position_repeat, task_group_repeat
+  Don't always group the same people   task_group_repeat soft constraint
+                                       (custom co-occurrence history by task
+                                       section, not exact slot)
+  พัชรสิรินทร์ ≠ ศศิลักษณ์ same task   hard(_separation_violated)
+  รุ่งโรจน์ fixed at M4               excluded from solver pool; merged at
+  อรุณี fixed at L3                    output time (not a constraint — just
+                                       never passed to the engine)
+  วรลักษณ์ → ชิดชนก                   name swap in ROTATABLE_NAMES list

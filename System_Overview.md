@@ -151,7 +151,7 @@ each accepted final arrangement, not during the search.
 ## 3. Component Architecture
 
 ```
-constraint-forge/
+quench/
 │
 │  ┌─ core/ ──────────────────────────────────────────────────────┐
 │  │                                                               │
@@ -174,8 +174,12 @@ constraint-forge/
 │  └───────────────────────────────────────────────────────────────┘
 │
 ├── examples/
-│   ├── timetable.py        spatial cost (walking distance)
-│   └── group_rotation.py   history-aware job/group diversity
+│   ├── timetable.py              spatial cost (walking distance)
+│   ├── group_rotation.py         history-aware job/group diversity
+│   └── pharmacy/
+│       ├── pharmacy_schedule.py  real-world: 15-staff inpatient pharmacy rotation
+│       ├── old_schedule.csv      customer's original schedule (reference)
+│       └── prompt.txt            original customer request + requirement→constraint map
 │
 ├── llm/
 │   └── README.md           stub for natural language constraint layer
@@ -547,3 +551,15 @@ pytest tests/
 | `test_history.py` | Co-occurrence accumulation, symmetry, cross-slot exclusion, save/load roundtrip, live-closure `as_soft_constraint` |
 | `test_engines_solver.py` | SA/PT feasibility, cost monotonicity, meta keys, reproducibility, auto engine selection, `sample()` sorting |
 | `test_edge_cases.py` | All 10 patched bugs: `iterations=0`, `trace_every=0`, `swap_interval=0`, unknown init strategy, duplicate constraint names, empty slots, PT swap timing, History int-ID roundtrip, negative soft penalties, Result properties |
+
+### Examples as real-world validation
+
+The three examples in `examples/` double as integration tests for the full pipeline:
+
+| Example | Domain | Key techniques |
+|---|---|---|
+| `group_rotation.py` | Activity group cycling (20 kids, 4 groups, 3 sessions) | `History.as_soft_constraint`, role-repeat penalty, multi-session loop |
+| `timetable.py` | School timetabling (10 courses, 36 slots) | Spatial cost via `Slot.meta`, `move` neighbor, `solver.sample()` |
+| `pharmacy/pharmacy_schedule.py` | Hospital inpatient pharmacy (15 staff, 15 positions, 4 weeks) | Fixed-position pattern, custom task-group history, three independent soft constraints, CSV export |
+
+The pharmacy example (`pharmacy_schedule.py`) is the first production use case built from a real customer request. It demonstrates a pattern not covered by the other examples: **separating fixed staff from the rotatable pool** — the solver only manages the 13 rotatable (entity, slot) pairs, then the fixed assignments are merged at output time. This avoids wasting engine iterations trying to move staff whose positions are non-negotiable.

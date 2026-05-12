@@ -27,11 +27,12 @@ To run the tests: `pip install pytest`
 
 ## Try it immediately
 
-Two working examples are included. Run both from the project root:
+Three working examples are included. Run any from the project root:
 
 ```bash
 python examples/group_rotation.py
 python examples/timetable.py
+python examples/pharmacy/pharmacy_schedule.py
 ```
 
 ### Group rotation
@@ -63,12 +64,42 @@ Summary: 0 repeat group pairs across 3 sessions
   P2           —      —      —    Art    Music     Math    —    —    —
   P3           —      —      —  Drama  English  History    —    —    —
   P4           —      —      —      —       CS      Geo    —    —    —
-
-Per-student walking distances:
-  Grace  ██ 2
-  Alice  █ 1
-  Bob     0  ...
 ```
+
+### Pharmacy schedule (real-world)
+
+15 inpatient pharmacists assigned to 5 task sections (S, M, L, C, V) across a 4-week month. Based on a real customer request.
+
+```bash
+python examples/pharmacy/pharmacy_schedule.py
+```
+
+Rules enforced:
+- พัชรสิรินทร์ and ศศิลักษณ์ must never be in the same task section (hard)
+- รุ่งโรจน์ fixed at M4, อรุณี fixed at L3 every week (hard)
+- Staff rotate through different task sections and sub-positions over time (soft)
+- Pairs who have worked together recently are separated (soft)
+
+Sample output:
+
+```
+  Week 1
+    S  (Satellite)
+      S1    สิริบุญ
+      S2    ประภวิษณุ
+      ...
+    M  (Main)
+      M4    รุ่งโรจน์  [fixed]
+      ...
+
+  Separation check
+    Week 1:  พัชรสิรินทร์=L   ศศิลักษณ์=C   ✓
+    Week 2:  พัชรสิรินทร์=S   ศศิลักษณ์=M   ✓
+    ...
+  Result: All weeks passed ✓
+```
+
+Exports `schedule_output.csv` in the same column format as the original schedule file.
 
 ---
 

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+env/
+venv/
+.venv/
+ENV/
+
+# Test cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Generated output — not part of the project source
+schedule_output.csv
+history.json
+*.history.json
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# IDE and tooling
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
