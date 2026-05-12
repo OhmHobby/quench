@@ -151,7 +151,7 @@ each accepted final arrangement, not during the search.
 ## 3. Component Architecture
 
 ```
-constraint-forge/
+quench/
 │
 │  ┌─ core/ ──────────────────────────────────────────────────────┐
 │  │                                                               │

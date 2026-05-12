@@ -1,4 +1,4 @@
-# constraint-forge
+# quench
 
 Arrange people into groups — or schedule things into time slots — while following rules you define.
 
@@ -18,7 +18,7 @@ Python 3.7+. The core engine has zero external dependencies — pure standard li
 
 ```bash
 git clone <repo>
-cd constraint-forge
+cd quench
 ```
 
 To run the tests: `pip install pytest`

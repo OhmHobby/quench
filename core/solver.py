@@ -21,7 +21,7 @@ InitStrategy = Literal["random", "balanced"]
 
 class Solver:
     """
-    Public API for the constraint-forge engine.
+    Public API for the quench engine.
 
     Accepts the problem definition (entities, slots, scorer), selects
     and configures an engine, and exposes two methods:
